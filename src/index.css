@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #0a0f0d;
+  --bg2: #111a14;
+  --bg3: #1a2a1f;
+  --card: #141f18;
+  --border: rgba(74, 222, 128, 0.12);
+  --border-hover: rgba(74, 222, 128, 0.3);
+  --text: #e8f5ee;
+  --muted: #7a9e86;
+  --accent: #4ade80;
+  --accent2: #86efac;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  background-color: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  margin: 0;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+.glass {
+  background: rgba(20, 31, 24, 0.7);
+  backdrop-filter: blur(16px);
+  border: 1px solid var(--border);
+}
+
+.glass:hover {
+  border-color: var(--border-hover);
+}
+
+.glow {
+  box-shadow: 0 0 30px rgba(74, 222, 128, 0.08);
+}
+
+.glow:hover {
+  box-shadow: 0 0 50px rgba(74, 222, 128, 0.15);
+}
+
+input, textarea, select {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.2s;
+  width: 100%;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: var(--accent);
+}
+
+select option {
+  background: #1a2a1f;
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #0a0f0d;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 14px;
+}
+
+.btn-primary:hover {
+  background: var(--accent2);
+  transform: translateY(-1px);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  background: rgba(74, 222, 128, 0.1);
+  color: var(--accent);
+  border: 1px solid rgba(74, 222, 128, 0.3);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: 14px;
+}
+
+.btn-secondary:hover {
+  background: rgba(74, 222, 128, 0.18);
+}
+
+label {
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  margin-bottom: 6px;
+  display: block;
+}
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border-hover); border-radius: 4px; }
