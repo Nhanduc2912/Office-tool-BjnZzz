@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Routes, Route, Link, useNavigate, useLocation } from 'react-router-dom';
 
+import Landing from './pages/Landing';
 import Dashboard from './pages/Dashboard';
 import ToolView from './pages/ToolView';
 import About from './pages/About';
@@ -18,10 +19,14 @@ export default function App() {
   const handleCategoryClick = (catId) => {
     setActiveCategory(catId);
     setSearch('');
-    if (location.pathname !== '/') {
-      navigate('/');
+    if (location.pathname !== '/dashboard') {
+      navigate('/dashboard');
     }
   };
+
+  if (location.pathname === '/') {
+    return <Landing />;
+  }
 
   return (
     <div style={{ display:'flex', minHeight:'100vh', background:'var(--bg)' }}>
@@ -46,16 +51,16 @@ export default function App() {
         <nav style={{ padding:'16px', display:'flex', flexDirection:'column', gap:'4px', flex:1, overflowY:'auto' }}>
           <div style={{ fontSize:'11px', fontWeight:700, color:'var(--muted)', textTransform:'uppercase', letterSpacing:'0.05em', marginBottom:'8px', paddingLeft:'8px' }}>Điều hướng</div>
           
-          <Link to="/" style={{ textDecoration: 'none' }}>
+          <Link to="/dashboard" style={{ textDecoration: 'none' }}>
             <motion.div
               whileHover={{ x:4, background:'rgba(255,255,255,0.05)' }}
               whileTap={{ scale:0.98 }}
               style={{
                 display:'flex', alignItems:'center', gap:'12px', padding:'10px 12px',
                 borderRadius:'10px', border:'none', cursor:'pointer', textAlign:'left',
-                background: location.pathname === '/' && activeCategory === 'all' ? 'var(--accent)' : 'transparent',
-                color: location.pathname === '/' && activeCategory === 'all' ? '#000' : 'var(--text)',
-                fontWeight: location.pathname === '/' && activeCategory === 'all' ? 600 : 500,
+                background: location.pathname === '/dashboard' && activeCategory === 'all' ? 'var(--accent)' : 'transparent',
+                color: location.pathname === '/dashboard' && activeCategory === 'all' ? '#000' : 'var(--text)',
+                fontWeight: location.pathname === '/dashboard' && activeCategory === 'all' ? 600 : 500,
                 transition: 'all 0.2s'
               }}
               onClick={() => handleCategoryClick('all')}
@@ -75,9 +80,9 @@ export default function App() {
               style={{
                 display:'flex', alignItems:'center', gap:'12px', padding:'10px 12px',
                 borderRadius:'10px', border:'none', cursor:'pointer', textAlign:'left',
-                background: location.pathname === '/' && activeCategory === cat.id ? 'var(--accent)' : 'transparent',
-                color: location.pathname === '/' && activeCategory === cat.id ? '#000' : 'var(--text)',
-                fontWeight: location.pathname === '/' && activeCategory === cat.id ? 600 : 500,
+                background: location.pathname === '/dashboard' && activeCategory === cat.id ? 'var(--accent)' : 'transparent',
+                color: location.pathname === '/dashboard' && activeCategory === cat.id ? '#000' : 'var(--text)',
+                fontWeight: location.pathname === '/dashboard' && activeCategory === cat.id ? 600 : 500,
                 transition: 'all 0.2s'
               }}
             >
@@ -146,7 +151,7 @@ export default function App() {
         {/* Router View */}
         <Routes>
           <Route 
-            path="/" 
+            path="/dashboard" 
             element={
               <Dashboard 
                 tools={tools} 
