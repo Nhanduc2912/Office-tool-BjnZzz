@@ -1,10 +1,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 
-const tabs = ['Đếm từ', 'Đổi chữ hoa/thường', 'Xóa khoảng trắng', 'Đảo ngược text'];
-
 export default function TextTools() {
-  const [activeTab, setActiveTab] = useState(0);
   const [text, setText] = useState('');
   const [result, setResult] = useState('');
   const [copied, setCopied] = useState(false);

@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 const modes = [
   { id: 'work', label: 'Làm việc', minutes: 25, color: '#4ade80' },
@@ -24,7 +24,7 @@ export default function PomodoroTimer() {
             clearInterval(intervalRef.current);
             setRunning(false);
             if (mode.id === 'work') setSessions(s => s + 1);
-            try { new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAA...').play(); } catch {}
+            try { new Audio('data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAA...').play(); } catch { /* ignore */ }
             return 0;
           }
           return t - 1;

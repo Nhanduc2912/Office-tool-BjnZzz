@@ -1,5 +1,5 @@
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState } from 'react';
+import { motion } from 'framer-motion';
 
 const charSets = {
   upper: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
@@ -44,8 +44,6 @@ export default function PasswordGenerator() {
     setPasswords(pws);
     setPassword(pws[0]);
   };
-
-  useEffect(() => { generate(); }, []);
 
   const copy = (pw, idx) => {
     navigator.clipboard.writeText(pw);
