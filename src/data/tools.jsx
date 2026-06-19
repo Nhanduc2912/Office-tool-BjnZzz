@@ -21,12 +21,12 @@ import UnitConverter from '../components/tools/UnitConverter';
 import WordToPDF from '../components/tools/WordToPDF';
 
 export const categories = [
-  { id: 'all', name: 'Tất cả', icon: '🌌' },
-  { id: 'doc', name: 'Tài liệu & PDF', icon: '📄' },
-  { id: 'img', name: 'Hình ảnh', icon: '🖼️' },
-  { id: 'dev', name: 'Lập trình & Data', icon: '💻' },
-  { id: 'utility', name: 'Tiện ích', icon: '🧰' },
-  { id: 'finance', name: 'Tài chính', icon: '💰' },
+  { id: 'all', name: 'Tất cả' },
+  { id: 'doc', name: 'Tài liệu & PDF' },
+  { id: 'img', name: 'Hình ảnh' },
+  { id: 'dev', name: 'Lập trình & Data' },
+  { id: 'utility', name: 'Tiện ích' },
+  { id: 'finance', name: 'Tài chính' },
 ];
 
 export const tools = [

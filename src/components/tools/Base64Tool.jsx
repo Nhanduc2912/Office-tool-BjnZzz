@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Editor from '@monaco-editor/react';
 
 export default function Base64Tool() {
   const [input, setInput] = useState('');
@@ -13,7 +14,6 @@ export default function Base64Tool() {
         return;
       }
       if (currentMode === 'encode') {
-        // Hỗ trợ unicode
         setOutput(btoa(unescape(encodeURIComponent(text))));
       } else {
         setOutput(decodeURIComponent(escape(atob(text))));
@@ -45,42 +45,44 @@ export default function Base64Tool() {
         </button>
       </div>
 
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-        <label style={{ fontSize: '14px', fontWeight: 600 }}>Đầu vào ({mode === 'encode' ? 'Text' : 'Base64'}):</label>
-        <textarea
-          value={input}
-          onChange={(e) => processText(e.target.value, mode)}
-          placeholder="Nhập nội dung vào đây..."
-          style={{
-            width: '100%', height: '150px', padding: '16px', borderRadius: '12px',
-            border: '1px solid var(--border)', background: 'rgba(255,255,255,0.02)',
-            color: 'var(--text)', fontSize: '14px', resize: 'vertical'
-          }}
-        />
-      </div>
-
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <label style={{ fontSize: '14px', fontWeight: 600 }}>Kết quả ({mode === 'encode' ? 'Base64' : 'Text'}):</label>
-          <button 
-            onClick={() => { navigator.clipboard.writeText(output); alert('Đã copy!'); }} 
-            disabled={!output || output.startsWith('❌')}
-            style={{ padding: '4px 10px', borderRadius: '6px', border: 'none', background: 'rgba(255,255,255,0.1)', color: 'var(--text)', cursor: (!output || output.startsWith('❌')) ? 'not-allowed' : 'pointer', fontSize: '12px' }}
-          >
-            Copy
-          </button>
+      <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+        <div style={{ flex: '1 1 300px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+          <label style={{ fontSize: '14px', fontWeight: 600 }}>Đầu vào ({mode === 'encode' ? 'Text' : 'Base64'}):</label>
+          <div style={{ borderRadius: '12px', overflow: 'hidden', border: '1px solid var(--border)' }}>
+            <Editor
+              height="250px"
+              defaultLanguage="text"
+              theme="vs-dark"
+              value={input}
+              onChange={(val) => processText(val || '', mode)}
+              options={{ minimap: { enabled: false }, fontSize: 13, scrollBeyondLastLine: false, wordWrap: 'on' }}
+            />
+          </div>
         </div>
-        <textarea
-          readOnly
-          value={output}
-          placeholder="Kết quả..."
-          style={{
-            width: '100%', height: '150px', padding: '16px', borderRadius: '12px',
-            border: '1px solid var(--border)', background: 'rgba(0,0,0,0.3)',
-            color: output.startsWith('❌') ? '#ef4444' : '#60a5fa', fontSize: '14px', resize: 'vertical'
-          }}
-        />
+
+        <div style={{ flex: '1 1 300px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <label style={{ fontSize: '14px', fontWeight: 600 }}>Kết quả ({mode === 'encode' ? 'Base64' : 'Text'}):</label>
+            <button 
+              onClick={() => { navigator.clipboard.writeText(output); alert('Đã copy!'); }} 
+              disabled={!output || output.startsWith('❌')}
+              style={{ padding: '4px 10px', borderRadius: '6px', border: 'none', background: 'rgba(255,255,255,0.1)', color: 'var(--text)', cursor: (!output || output.startsWith('❌')) ? 'not-allowed' : 'pointer', fontSize: '12px' }}
+            >
+              Copy
+            </button>
+          </div>
+          <div style={{ borderRadius: '12px', overflow: 'hidden', border: '1px solid var(--border)' }}>
+            <Editor
+              height="250px"
+              defaultLanguage="text"
+              theme="vs-dark"
+              value={output}
+              options={{ readOnly: true, minimap: { enabled: false }, fontSize: 13, scrollBeyondLastLine: false, wordWrap: 'on' }}
+            />
+          </div>
+        </div>
       </div>
     </div>
   );
 }
+

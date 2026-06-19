@@ -1,7 +1,8 @@
 import { useState } from 'react';
+import Editor from '@monaco-editor/react';
 
 export default function JsonFormatter() {
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState('{\n  "hello": "world"\n}');
   const [output, setOutput] = useState('');
   const [error, setError] = useState('');
 
@@ -45,16 +46,16 @@ export default function JsonFormatter() {
       <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
         <div style={{ flex: '1 1 300px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
           <label style={{ fontSize: '14px', fontWeight: 600 }}>Input JSON:</label>
-          <textarea
-            value={input}
-            onChange={(e) => setInput(e.target.value)}
-            placeholder='{"key": "value"}'
-            style={{
-              width: '100%', height: '300px', padding: '16px', borderRadius: '12px',
-              border: '1px solid var(--border)', background: 'rgba(255,255,255,0.02)',
-              color: 'var(--text)', fontFamily: 'monospace', fontSize: '13px', resize: 'vertical'
-            }}
-          />
+          <div style={{ borderRadius: '12px', overflow: 'hidden', border: '1px solid var(--border)' }}>
+            <Editor
+              height="300px"
+              defaultLanguage="json"
+              theme="vs-dark"
+              value={input}
+              onChange={(val) => setInput(val || '')}
+              options={{ minimap: { enabled: false }, fontSize: 13, scrollBeyondLastLine: false }}
+            />
+          </div>
           <div style={{ display: 'flex', gap: '8px' }}>
             <button onClick={formatJson} style={{ flex: 1, padding: '10px', borderRadius: '8px', border: 'none', background: 'var(--accent)', color: '#000', fontWeight: 600, cursor: 'pointer' }}>
               Format (Làm đẹp)
@@ -77,16 +78,15 @@ export default function JsonFormatter() {
               <strong>Lỗi JSON không hợp lệ:</strong><br /><br />{error}
             </div>
           ) : (
-            <textarea
-              readOnly
-              value={output}
-              placeholder="Kết quả hiển thị ở đây..."
-              style={{
-                width: '100%', height: '300px', padding: '16px', borderRadius: '12px',
-                border: '1px solid var(--border)', background: 'rgba(0,0,0,0.3)',
-                color: '#34d399', fontFamily: 'monospace', fontSize: '13px', resize: 'vertical'
-              }}
-            />
+            <div style={{ borderRadius: '12px', overflow: 'hidden', border: '1px solid var(--border)' }}>
+              <Editor
+                height="300px"
+                defaultLanguage="json"
+                theme="vs-dark"
+                value={output}
+                options={{ readOnly: true, minimap: { enabled: false }, fontSize: 13, scrollBeyondLastLine: false }}
+              />
+            </div>
           )}
         </div>
       </div>

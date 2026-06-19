@@ -17,6 +17,19 @@
   --accent2: #86efac;
 }
 
+[data-theme='light'] {
+  --bg: #f8fafc;
+  --bg2: #f1f5f9;
+  --bg3: #e2e8f0;
+  --card: #ffffff;
+  --border: rgba(0, 0, 0, 0.1);
+  --border-hover: rgba(0, 0, 0, 0.2);
+  --text: #0f172a;
+  --muted: #64748b;
+  --accent: #22c55e;
+  --accent2: #16a34a;
+}
+
 * { box-sizing: border-box; }
 
 body {

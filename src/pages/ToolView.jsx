@@ -1,11 +1,19 @@
+import { useEffect } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import { tools } from '../data/tools';
 import { motion } from 'framer-motion';
+import { Star } from 'lucide-react';
+import { useAppContext } from '../context/AppContext';
 
 export default function ToolView() {
   const { id } = useParams();
   const navigate = useNavigate();
   const tool = tools.find(t => t.id === id);
+  const { favorites, toggleFavorite, addRecent } = useAppContext();
+
+  useEffect(() => {
+    if (tool) addRecent(tool.id);
+  }, [tool, addRecent]);
 
   if (!tool) {
     return (
@@ -44,6 +52,22 @@ export default function ToolView() {
               </p>
             </div>
           </div>
+        </div>
+        
+        <div style={{ marginLeft: 'auto' }}>
+          <button
+            onClick={() => toggleFavorite(tool.id)}
+            style={{ 
+              display: 'flex', alignItems: 'center', gap: '8px', 
+              padding: '10px 16px', borderRadius: '12px', border: '1px solid var(--border)',
+              background: favorites.includes(tool.id) ? 'rgba(74,222,128,0.1)' : 'rgba(255,255,255,0.05)',
+              color: favorites.includes(tool.id) ? 'var(--accent)' : 'var(--text)',
+              cursor: 'pointer', fontWeight: 600, fontSize: '14px', transition: 'all 0.2s'
+            }}
+          >
+            <Star size={18} fill={favorites.includes(tool.id) ? 'var(--accent)' : 'transparent'} />
+            {favorites.includes(tool.id) ? 'Đã yêu thích' : 'Lưu yêu thích'}
+          </button>
         </div>
       </header>
 
