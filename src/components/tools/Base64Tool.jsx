@@ -1,7 +1,9 @@
 import { useState } from 'react';
+import { useToast } from '../../context/ToastContext';
 import Editor from '@monaco-editor/react';
 
 export default function Base64Tool() {
+  const { addToast } = useToast();
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
   const [mode, setMode] = useState('encode'); // 'encode' | 'decode'
@@ -63,12 +65,12 @@ export default function Base64Tool() {
         <div style={{ flex: '1 1 300px', display: 'flex', flexDirection: 'column', gap: '8px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <label style={{ fontSize: '14px', fontWeight: 600 }}>Kết quả ({mode === 'encode' ? 'Base64' : 'Text'}):</label>
-            <button 
-              onClick={() => { navigator.clipboard.writeText(output); alert('Đã copy!'); }} 
+            <button
+              onClick={() => { navigator.clipboard.writeText(output); addToast('Đã sao chép!', 'success'); }}
               disabled={!output || output.startsWith('❌')}
-              style={{ padding: '4px 10px', borderRadius: '6px', border: 'none', background: 'rgba(255,255,255,0.1)', color: 'var(--text)', cursor: (!output || output.startsWith('❌')) ? 'not-allowed' : 'pointer', fontSize: '12px' }}
+              style={{ padding: '4px 10px', borderRadius: '6px', border: '1px solid rgba(74,222,128,0.3)', background: 'rgba(74,222,128,0.08)', color: 'var(--accent)', cursor: (!output || output.startsWith('❌')) ? 'not-allowed' : 'pointer', fontSize: '12px', fontWeight: 600, fontFamily: 'DM Sans, sans-serif' }}
             >
-              Copy
+              📋 Copy
             </button>
           </div>
           <div style={{ borderRadius: '12px', overflow: 'hidden', border: '1px solid var(--border)' }}>
